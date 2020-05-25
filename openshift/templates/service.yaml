@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    app: mydockerapp
+  name: mydockerapp
+spec:
+  ports:
+  - name: 8000-tcp
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: mydockerapp
+    deploymentconfig: mydockerapp
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

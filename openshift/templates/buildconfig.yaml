@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+items:
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    labels:
+      name: mydockerapp
+    name: mydockerapp
+  spec:
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: mydockerapp:latest
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      dockerfile: |
+        FROM ubuntu:devel
+        LABEL maintainer="Mark de Bruijn <mark.de.bruijn@hotpotatoes.nl>" \
+        io.openshift.expose-services="8000"
+        RUN useradd -m -d /home/web web && \
+            apt-get update && \
+            apt-get upgrade -y && \
+            apt-get install python -y && \
+            apt-get autoclean -y && \
+            apt-get autoremove -y && \
+            rm -rf /var/cache/apt/archives/*
+        ENV USERNAME=web
+        ENV PYTHONPATH /home/web/
+        WORKDIR /home/web
+        RUN echo "<h1>Patatas Calientes</h1><p>Greetings from python @ ubuntu:devel</p>" > /home/web/index.html
+        EXPOSE 8000
+        USER 1000001
+        ENTRYPOINT ["python", "-m", "SimpleHTTPServer"]
+      type: Dockerfile
+    strategy:
+      dockerStrategy: {}
+      type: Docker
+    triggers: []
+kind: List
+metadata:

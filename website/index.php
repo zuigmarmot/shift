@@ -20,17 +20,17 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 </style>
-<title> Decimal to Hex</title>
+<title> Soepkip Heerst</title>
 </head>
 <body>
-<h1>Decimal to hex</h1>
+<h1>Mooie sjizzle man</h1>
 <?php
 echo "<table>\n";
 $dec = 0;
 foreach (range(0, 15) as $row) {
     echo "<tr>\n";
     foreach (range(0, 15) as $col) {
-        echo "\t<td>$dec = " . strtoupper(dechex($dec)) . "</td>\n";
+        echo "\t<td>$de:c = " . strtoupper(dechex($dec)) . "</td>\n";
         $dec = $dec + 1;
     }
     echo "</tr>\n";
